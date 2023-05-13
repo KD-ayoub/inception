@@ -1,19 +1,19 @@
 version : "3.5"
 volumes : 
   wordpress: 
+   driver_opts:
+      type: 'none'
+      o: bind
+      device: $HOST/wordpress
+  mariadb :
+   driver_opts:
+      type: 'none'
+      o: bind
+      device: $HOST/mariadb
 
 services :
-  wordpress:
-    image: wordpress:42
-    container_name: wordpress
-    build: ./requirements/wordpress/.
-    ports:
-      - 9000
-    volumes:
-      - wordpress:/var/www/html
-    restart: always
   nginx:
-    image: nginx:42
+    #image: nginx:42
     container_name: nginx
     build: ./requirements/nginx/.
     ports:
@@ -22,3 +22,25 @@ services :
       - wordpress:/var/www/html
     depends_on:
       - wordpress
+  wordpress:
+    #image: wordpress:42
+    container_name: wordpress
+    build: ./requirements/wordpress/.
+    ports:
+      - 9000
+    volumes:
+      - wordpress:/var/www/html
+    depends_on :
+      - mariadb
+    restart: always
+    env_file: 
+      - .env
+  mariadb :
+    container_name : mariadb
+    build : ./requirements/mariadb
+    env_file: 
+      - .env
+    volumes :
+      - mariadb:/var/lib/mysql
+
+
