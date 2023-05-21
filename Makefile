@@ -1,4 +1,6 @@
-mkdir:
+all : mkdir up
+
+mkdir : 
 	mkdir -p /home/akadi/data
 	mkdir -p /home/akadi/data/wordpress
 	mkdir -p /home/akadi/data/mariadb
@@ -11,8 +13,9 @@ down:
 ps :
 	docker-compose -f ./srcs/docker-compose.yml ps
 
-rm :
-	docker rm -f $$(docker ps -aq)
+rm : down
+	# docker rm -f $$(docker ps -aq)
 	docker rmi -f $$(docker image ls -aq)
 	docker volume rm srcs_mariadb
 	docker volume rm srcs_wordpress
+	sudo rm -rf /home/akadi/data
