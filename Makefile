@@ -19,3 +19,6 @@ rm : down
 	docker volume rm srcs_mariadb
 	docker volume rm srcs_wordpress
 	sudo rm -rf /home/akadi/data
+
+
+
