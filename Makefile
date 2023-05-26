@@ -14,7 +14,6 @@ ps :
 	docker-compose -f ./srcs/docker-compose.yml ps
 
 rm : down
-	# docker rm -f $$(docker ps -aq)
 	docker rmi -f $$(docker image ls -aq)
 	docker volume rm srcs_mariadb
 	docker volume rm srcs_wordpress

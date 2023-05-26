@@ -1,4 +1,4 @@
-version : "3.5"
+version : "3.8"
 volumes : 
   wordpress:
    driver_opts:
@@ -50,5 +50,4 @@ services :
 
 networks :
   my_net:
-    name : networkk
     driver : bridge
